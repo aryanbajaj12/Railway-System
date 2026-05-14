@@ -1,0 +1,74 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% block a %}
+<div class="container mt-5 mb-5">
+    <!-- Header Card -->
+    <div class="card shadow-sm border-0 mb-4 overflow-hidden" style="border-radius: 15px;">
+        <div class="card-header py-4" style="background-color: #003366; color: white;">
+            <h1 class="h2 mb-0 font-weight-bold"><i class="fas fa-info-circle mr-2"></i> About Railway Reservation System</h1>
+        </div>
+        <div class="card-body p-5 bg-white">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h2 class="text-primary h4 mb-3">Your Trusted Travel Partner</h2>
+                    <p class="text-dark lead" style="font-size: 1.1rem; line-height: 1.6;">
+                        Welcome to the official Railway Reservation portal. We provide a seamless and secure platform for passengers to book tickets, check live train status, and manage their travel itineraries across the nation.
+                    </p>
+                    <p class="text-muted">
+                        Our mission is to simplify rail travel through technology, providing real-time data and a user-friendly interface that empowers millions of commuters every day. Whether you're planning a cross-country journey or a daily commute, we ensure your experience is efficient and reliable.
+                    </p>
+                </div>
+                <div class="col-lg-4 d-none d-lg-block text-center">
+                    <img src="https://img.icons8.com/color/160/000000/train.png" alt="Train Icon" class="img-fluid opacity-75">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0" style="border-radius: 12px; border-top: 5px solid #0056b3 !important;">
+                <div class="card-body p-4">
+                    <h3 class="h5 font-weight-bold text-primary mb-3"><i class="fas fa-ticket-alt mr-2"></i> Instant Booking</h3>
+                    <p class="text-secondary">Search for available trains between any two cities and book your seat in seconds. Get immediate confirmation and access your tickets via your personal dashboard.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0" style="border-radius: 12px; border-top: 5px solid #28a745 !important;">
+                <div class="card-body p-4">
+                    <h3 class="h5 font-weight-bold text-success mb-3"><i class="fas fa-clock mr-2"></i> Live Schedules</h3>
+                    <p class="text-secondary">Access accurate departure and arrival timings for all major express and passenger trains. Our real-time engine keeps you updated on any delays or changes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0" style="border-radius: 12px; border-top: 5px solid #17a2b8 !important;">
+                <div class="card-body p-4">
+                    <h3 class="h5 font-weight-bold text-info mb-3"><i class="fas fa-shield-alt mr-2"></i> Secure System</h3>
+                    <p class="text-secondary">We prioritize your data privacy. Our secure authentication system ensures that your passenger details and booking history are only accessible to you.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f0f2f5;
+        font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+    .card {
+        transition: transform 0.2s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .text-primary { color: #003366 !important; }
+    .bg-primary { background-color: #003366 !important; }
+</style>
+{% endblock %}
+
+
+
