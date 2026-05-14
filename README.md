@@ -21,22 +21,26 @@ A professional Railway Reservation System built with Django, featuring a modern 
 ## 📦 Setup & Installation
 
 1. **Clone the repository**:
+
    ```bash
    git clone <repository-url>
    cd AB
    ```
 
 2. **Install dependencies using `uv`**:
+
    ```bash
    uv sync
    ```
 
 3. **Apply migrations**:
+
    ```bash
    uv run python manage.py migrate
    ```
 
 4. **Run the development server**:
+
    ```bash
    uv run python manage.py runserver
    ```
