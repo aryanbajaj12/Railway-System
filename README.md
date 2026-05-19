@@ -1,4 +1,4 @@
-# 🚂 Antigravity Railway Reservation System
+# 🚂Railway Reservation System
 
 A professional Railway Reservation System built with Django, featuring a modern Indian Railways theme. This project provides a seamless booking experience with automated data population and real-time schedule integration.
 
