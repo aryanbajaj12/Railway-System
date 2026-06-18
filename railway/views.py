@@ -89,6 +89,166 @@ def warm_up_data():
             Add_route.objects.create(train=train, route=t["from"], distance=0, fare=0)
             Add_route.objects.create(train=train, route=t["to"], distance=t["dist"], fare=t["fare"])
 
+        # --- Intermediate stations ---
+        # Format: (train_no, from_city, stop_name, distance_from_origin, fare_from_origin)
+        stops_data = [
+            # Rajdhani Express - New Delhi → Guwahati
+            (12423, "New Delhi",          "Kanpur Central",    440,  700),
+            (12423, "New Delhi",          "Lucknow",           512,  800),
+            (12423, "New Delhi",          "Patna",             1000, 1800),
+            (12423, "New Delhi",          "New Jalpaiguri",    1650, 2800),
+            # Shatabdi Express - New Delhi → Bhopal
+            (12002, "New Delhi",          "Agra Cantt",        195,  350),
+            (12002, "New Delhi",          "Gwalior",           305,  550),
+            (12002, "New Delhi",          "Jhansi",            403,  700),
+            # Kalka Shatabdi - New Delhi → Kalka
+            (12005, "New Delhi",          "Ambala Cantt",      195,  450),
+            (12005, "New Delhi",          "Chandigarh",        244,  570),
+            # Himalayan Queen - Delhi Sarai Rohilla → Kalka
+            (14095, "Delhi Sarai Rohilla","Ambala Cantt",      190,  90),
+            # Gorakhdham Express - Hisar → Gorakhpur
+            (12556, "Hisar",              "Rohtak",            76,   90),
+            (12556, "Hisar",              "New Delhi",         190,  180),
+            (12556, "Hisar",              "Lucknow",           630,  320),
+            # Kisan Express - Old Delhi → Bathinda
+            (14731, "Old Delhi",          "Ambala Cantt",      195,  80),
+            (14731, "Old Delhi",          "Ludhiana",          280,  110),
+            # Haryana Express - Tilak Bridge → Sirsa
+            (14088, "Tilak Bridge",       "Rohtak",            65,   50),
+            (14088, "Tilak Bridge",       "Hisar",             173,  100),
+            # Netaji Express - Howrah → Kalka
+            (12311, "Howrah",             "Patna",             531,  200),
+            (12311, "Howrah",             "New Delhi",         1441, 480),
+            (12311, "Howrah",             "Ambala Cantt",      1636, 580),
+            # Hisar Coimbatore AC SF - Hisar → Coimbatore
+            (22475, "Hisar",              "New Delhi",         190,  400),
+            (22475, "Hisar",              "Nagpur",            1350, 1800),
+            (22475, "Hisar",              "Chennai Central",   2600, 2600),
+            # Bhiwani Kanpur Express - Bhiwani → Kanpur Central
+            (14154, "Bhiwani",            "Rohtak",            65,   60),
+            (14154, "Bhiwani",            "New Delhi",         145,  100),
+            (14154, "Bhiwani",            "Agra Cantt",        342,  190),
+            # Ambala Nanded SF Express - Ambala Cantt → Hazur Sahib Nanded
+            (22710, "Ambala Cantt",       "New Delhi",         195,  200),
+            (22710, "Ambala Cantt",       "Agra Cantt",        390,  280),
+            (22710, "Ambala Cantt",       "Bhopal",            980,  450),
+            (22710, "Ambala Cantt",       "Nagpur",            1360, 560),
+            # Chandigarh Shatabdi - New Delhi → Chandigarh
+            (12045, "New Delhi",          "Ambala Cantt",      200,  450),
+            # Jaipur Chandigarh Express - Jaipur → Chandigarh
+            (19717, "Jaipur",             "New Delhi",         270,  150),
+            (19717, "Jaipur",             "Ambala Cantt",      465,  250),
+            # Ajmer Chandigarh Garib Rath - Ajmer → Chandigarh
+            (12983, "Ajmer",              "Jaipur",            135,  180),
+            (12983, "Ajmer",              "New Delhi",         430,  380),
+            (12983, "Ajmer",              "Ambala Cantt",      625,  570),
+            # Vande Bharat Express - New Delhi → Varanasi
+            (22436, "New Delhi",          "Kanpur Central",    440,  750),
+            (22436, "New Delhi",          "Prayagraj",         634,  1100),
+            # Mumbai Rajdhani - New Delhi → Mumbai Central
+            (12952, "New Delhi",          "Kota",              460,  900),
+            (12952, "New Delhi",          "Vadodara",          956,  1700),
+            (12952, "New Delhi",          "Surat",             1048, 1900),
+            # Kerala Express - New Delhi → Trivandrum
+            (12626, "New Delhi",          "Bhopal",            700,  350),
+            (12626, "New Delhi",          "Nagpur",            1100, 480),
+            (12626, "New Delhi",          "Hyderabad",         1750, 600),
+            (12626, "New Delhi",          "Chennai Central",   2175, 750),
+            (12626, "New Delhi",          "Kochi",             2780, 880),
+            # Coromandel Express - Howrah → Chennai Central
+            (12841, "Howrah",             "Bhubaneswar",       441,  220),
+            (12841, "Howrah",             "Visakhapatnam",     800,  350),
+            (12841, "Howrah",             "Vijayawada",        1100, 480),
+            # Paschim Express - Bandra Terminus → Amritsar
+            (12925, "Bandra Terminus",    "Surat",             255,  180),
+            (12925, "Bandra Terminus",    "Vadodara",          390,  250),
+            (12925, "Bandra Terminus",    "Ahmedabad",         490,  300),
+            (12925, "Bandra Terminus",    "New Delhi",         1390, 620),
+            (12925, "Bandra Terminus",    "Ambala Cantt",      1590, 680),
+            # Gitanjali Express - Mumbai CSMT → Howrah
+            (12859, "Mumbai CSMT",        "Nagpur",            850,  320),
+            (12859, "Mumbai CSMT",        "Raipur",            1100, 420),
+            (12859, "Mumbai CSMT",        "Bilaspur",          1200, 450),
+            # Navjeevan Express - Ahmedabad → Chennai Central
+            (12655, "Ahmedabad",          "Surat",             245,  150),
+            (12655, "Ahmedabad",          "Mumbai CSMT",       491,  280),
+            (12655, "Ahmedabad",          "Pune",              643,  350),
+            # Darjeeling Mail - Sealdah → New Jalpaiguri
+            (12343, "Sealdah",            "Malda Town",        330,  200),
+            (12343, "Sealdah",            "Kishanganj",        450,  280),
+            # Gorakhdham Return - Sirsa → Gorakhpur
+            (12556, "Sirsa",              "Hisar",             76,   60),
+            (12556, "Sirsa",              "New Delhi",         266,  160),
+            (12556, "Sirsa",              "Lucknow",           706,  360),
+            # Haryana Express - Sirsa → New Delhi
+            (14086, "Sirsa",              "Hisar",             76,   60),
+            (14086, "Sirsa",              "Rohtak",            235,  110),
+            # Ajmer Shatabdi - New Delhi → Ajmer
+            (12015, "New Delhi",          "Jaipur",            303,  580),
+            # Garib Rath - Bandra Terminus → Delhi Sarai Rohilla
+            (12216, "Bandra Terminus",    "Surat",             255,  250),
+            (12216, "Bandra Terminus",    "Vadodara",          390,  350),
+            (12216, "Bandra Terminus",    "Ahmedabad",         490,  420),
+            # Ashram Express - New Delhi → Ahmedabad
+            (12916, "New Delhi",          "Mathura",           141,  150),
+            (12916, "New Delhi",          "Kota",              460,  290),
+            (12916, "New Delhi",          "Vadodara",          870,  420),
+            # Chetak Express - Delhi Sarai Rohilla → Udaipur
+            (20473, "Delhi Sarai Rohilla","Jaipur",            303,  210),
+            (20473, "Delhi Sarai Rohilla","Ajmer",             440,  280),
+            # August Kranti Rajdhani - Hazrat Nizamuddin → Mumbai Central
+            (12954, "Hazrat Nizamuddin",  "Vadodara",          946,  1600),
+            (12954, "Hazrat Nizamuddin",  "Surat",             1038, 1800),
+            # Golden Temple Mail - Amritsar → Mumbai Central
+            (12904, "Amritsar",           "Ambala Cantt",      172,  120),
+            (12904, "Amritsar",           "New Delhi",         447,  280),
+            (12904, "Amritsar",           "Kota",              930,  480),
+            (12904, "Amritsar",           "Vadodara",          1410, 620),
+            # Punjab Mail - Firozpur Cantt → Mumbai CSMT
+            (12138, "Firozpur Cantt",     "Ambala Cantt",      145,  100),
+            (12138, "Firozpur Cantt",     "New Delhi",         396,  230),
+            (12138, "Firozpur Cantt",     "Kota",              880,  440),
+            (12138, "Firozpur Cantt",     "Nagpur",            1380, 600),
+            # Kanpur Shatabdi - New Delhi → Kanpur Central
+            (12034, "New Delhi",          "Agra Cantt",        195,  400),
+            # Lucknow Swran Shatabdi - New Delhi → Lucknow
+            (12004, "New Delhi",          "Kanpur Central",    440,  700),
+            # Gomti Express - New Delhi → Lucknow
+            (12420, "New Delhi",          "Agra Cantt",        195,  80),
+            (12420, "New Delhi",          "Kanpur Central",    440,  130),
+            # Shram Shakti - New Delhi → Kanpur Central
+            (12452, "New Delhi",          "Agra Cantt",        195,  120),
+            # Tejas Express - New Delhi → Lucknow
+            (82502, "New Delhi",          "Kanpur Central",    440,  900),
+            # Lucknow Mail - New Delhi → Lucknow
+            (12230, "New Delhi",          "Kanpur Central",    440,  200),
+            # Howrah Rajdhani - New Delhi → Howrah
+            (12302, "New Delhi",          "Kanpur Central",    440,  700),
+            (12302, "New Delhi",          "Prayagraj",         634,  1000),
+            (12302, "New Delhi",          "Patna",             1000, 1700),
+            # Poorva Express - New Delhi → Howrah
+            (12304, "New Delhi",          "Kanpur Central",    440,  200),
+            (12304, "New Delhi",          "Prayagraj",         634,  330),
+            (12304, "New Delhi",          "Patna",             1000, 500),
+            # SBC Rajdhani - Hazrat Nizamuddin → KSR Bengaluru
+            (22692, "Hazrat Nizamuddin",  "Nagpur",            1090, 1500),
+            (22692, "Hazrat Nizamuddin",  "Hyderabad",         1500, 2200),
+            # Grand Trunk Express - New Delhi → Chennai Central
+            (12616, "New Delhi",          "Bhopal",            700,  250),
+            (12616, "New Delhi",          "Nagpur",            1100, 360),
+            (12616, "New Delhi",          "Hyderabad",         1670, 520),
+            (12616, "New Delhi",          "Vijayawada",        1900, 640),
+            # Tamil Nadu Express - New Delhi → Chennai Central
+            (12622, "New Delhi",          "Bhopal",            700,  260),
+            (12622, "New Delhi",          "Nagpur",            1100, 370),
+            (12622, "New Delhi",          "Hyderabad",         1670, 540),
+            (12622, "New Delhi",          "Vijayawada",        1900, 650),
+        ]
+        for train_no, from_city, stop_route, dist, fare in stops_data:
+            train = Add_Train.objects.filter(train_no=train_no, from_city=from_city).first()
+            if train:
+                Add_route.objects.create(train=train, route=stop_route, distance=dist, fare=fare)
+
 def nav(request):
     return render(request,'carousel.html')
 
